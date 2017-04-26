@@ -14,7 +14,6 @@ class Router
 		if (isset($chunks[3]))
 			$args = $chunks[3];
 		
-		$errNotFound = 'path '.$_SERVER['REQUEST_URI'].' not found';
 		$controllerName = ucfirst($controllerName).'Controller';
 		$controllerFile = 'controllers/'.$controllerName.'.php';
 
@@ -25,9 +24,9 @@ class Router
 			if (method_exists($controller, $actionName))
 				$controller->$actionName($args);
 			else
-				throw new Exception($errNotFound);
+				throw new PageNotFoundException();
 		} else {
-			throw new Exception($errNotFound);
+			throw new PageNotFoundException();
 		}		
 	}
 }

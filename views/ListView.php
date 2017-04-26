@@ -3,8 +3,8 @@
 <?php foreach ($data as $entry) { ?>
 	<div class="entry_line">
 		<div><?php echo $entry->getFio(); ?></div>
-		<div><?php echo $entry->getCityName(); ?></div>
-		<div><?php echo $entry->getStreetName(); ?></div>
+		<div><?php echo $entry->cityName; ?></div>
+		<div><?php echo $entry->streetName; ?></div>
 		<div><?php echo $entry->phone; ?></div>
 		<div><?php echo $entry->birthday; ?></div>
 	</div>
