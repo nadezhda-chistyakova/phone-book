@@ -11,4 +11,18 @@ try {
 } catch (PageNotFoundException $e) {
 	http_response_code(404);
 	echo "<h1>Error 404 Not Found</h1>";
+} catch (ObjectNotFoundException $e) {
+	// ToDo
+} catch (DBConnectionException $e) {
+	http_response_code(500);
+	echo "<h1>Internal error</h1>";
+	echo $e->getMessage();
+} catch (DBException $e) {
+	http_response_code(500);
+	echo "<h1>Internal error</h1>";
+	echo $e->getMessage();
+} catch (NotImplementedException $e) {
+	http_response_code(500);
+	echo "<h1>Internal error</h1>";
+	echo $e->getMessage();
 }

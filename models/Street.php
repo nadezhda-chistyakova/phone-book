@@ -9,11 +9,7 @@ class Street extends Model
 		return 'streets';
 	}
 
-	static public function fields($forSql) {
-		if ($forSql)
-			$ownFields = ['m.name', 'm.city'];
-		else
-			$ownFields = ['name', 'city'];
-		return array_merge(parent::fields($forSql), $ownFields);
+	static protected function fields() {
+		return ['name', 'city'];
 	}
 }

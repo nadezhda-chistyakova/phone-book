@@ -4,24 +4,33 @@ require_once 'core/Connection.php';
 
 class Model
 {
-	private $id;
+	public $id;
 
 	static public function tableName() {
 		return '';
 	}
 
-	static protected function fields($forSql) {
-		if ($forSql)
-			return ['m.id'];
-		else
-			return ['id'];
+	static protected function keyField() {
+		return 'id';
+	}
+
+	static protected function fields() {
+		return [];
+	}
+
+	static protected function additionalFields() {
+		return [];
 	}
 
 	static protected function getSQL($cond) {
-		$sql =
-			'SELECT '.implode(',', static::fields(true)).' '.
-			'FROM '.static::tableName().' m '.
-			static::getSQLJoins();
+		// получаем поля объекта, добавляем к ним ключевое поле
+		$sqlFields = array_merge([static::keyField()], static::fields());
+		// дописываем алиас основной таблицы
+		$sqlFields = array_map(function($field) { return 'm.'.$field; }, $sqlFields);
+		// добавляем поля других таблиц, соединяем в строку
+		$sqlFields = implode(',', array_merge($sqlFields, static::additionalFields()));
+		// собираем весь запрос
+		$sql = 'SELECT '.$sqlFields.' '.'FROM '.static::tableName().' m '.static::getSQLJoins();
 		if ($cond != '')
 			$sql .= 'WHERE '.$cond;
 		return $sql;
@@ -31,10 +40,23 @@ class Model
 		return '';
 	}
 
+	static public function insert($values) {
+		throw new NotImplementedException();
+	}
+
+	static public function update($values) {
+		throw new NotImplementedException();
+	}
+
 	static public function get($id) {
 		$con = new Connection();
-		$pq = $con->con->prepare(static::getSQL('id = ?'));
-		if (!$pq->bind_param('i', $id) || !($data = $pq->execute()) || ($data->num_rows == 0))
+		$q = $con->con->stmt_init();
+		if (!$q->prepare(static::getSQL('m.id = ?')) || !$q->bind_param('i', $id)  || !$q->execute())
+			throw new DBException($q->error);
+		$data = $q->get_result();
+		if (!$data)
+			throw new DBException($con->con->errno);
+		if ($data->num_rows == 0)
 			throw new ObjectNotFoundException();
 		$row = $data->fetch_assoc();
 		$res = new static();
