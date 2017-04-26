@@ -76,8 +76,8 @@ class Model
 		return $res;
 	}
 
-	protected function init($row) {
-		foreach($row as $key => $value)
+	public function init($values) {
+		foreach($values as $key => $value)
 			$this->$key = $value;
 	}
 }

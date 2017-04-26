@@ -1,7 +1,11 @@
 .entry_line>div {
 	display: inline-block;
 	padding: 5px;
-	width: 15%;
+	width: 10%;
+}
+
+div.entry_line_large {
+	width: 30%;
 }
 
 .entry_header {
