@@ -1,4 +1,7 @@
 <h1><?php echo $data['title']; ?></h1>
+<div class="navigation">
+	<a href="/list" title="Вернуться к списку номеров">Назад к списку</a>
+</div>
 <?php
 	if (isset($data['message']))
 		echo '<div class="message '.$data['message_kind'].'">'.$data['message'].'</div>';

@@ -35,6 +35,7 @@ div.entry_input_footer {
 .message {
 	padding: 10px;
 	border-radius: 5px;
+	margin-bottom: 10px;
 }
 
 .message_success {
@@ -43,4 +44,9 @@ div.entry_input_footer {
 
 .message_error {
 	background-color: #FA5D5D;
+}
+
+.navigation {
+	font-size: small;
+	margin: 5px 5px 10px 5px;
 }

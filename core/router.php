@@ -21,8 +21,10 @@ class Router
 			require_once $controllerFile;
 			$actionName = 'action'.ucfirst($actionName);
 			$controller = new $controllerName;
-			if (method_exists($controller, $actionName))
+			if (method_exists($controller, $actionName)) {
+				session_start();
 				$controller->$actionName($args);
+			}
 			else
 				throw new PageNotFoundException();
 		} else {

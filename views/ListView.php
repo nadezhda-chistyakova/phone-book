@@ -1,4 +1,11 @@
 <h1>Номера телефонов</h1>
+<?php
+	if (isset($_SESSION['message'])) {
+		echo '<div class="message '.$_SESSION['message_kind'].'">'.$_SESSION['message'].'</div>';
+		unset($_SESSION['message']);
+		unset($_SESSION['message_kind']);
+	}
+?>
 <div>
 	<div class="entry_line entry_header">
 		<div class="entry_line_large">ФИО</div>
@@ -17,7 +24,15 @@
 		<div><?php echo $entry->birthday; ?></div>
 		<div>
 			<a href="/list/edit/<?php echo $entry->id ?>" title="Редактировать запись...">Редактировать</a>
-			<a href="/list/delete/<?php echo $entry->id ?>" title="Удалить запись">Удалить</a>
+			<form
+				id="del<?php echo $entry->id ?>"
+				action="/list/delete/<?php echo $entry->id ?>"
+				name="del<?php echo $entry->id ?>"
+				method="POST"
+			>
+				<input type="hidden" name="id" value=<?php echo '"'.$entry->id.'"'; ?>>
+				<input type="submit" value="Удалить">
+			</form>
 		</div>
 	</div>
 <?php } ?>

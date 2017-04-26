@@ -48,6 +48,16 @@ class Model
 		throw new NotImplementedException();
 	}
 
+	static public function delete($id) {
+		if (!isset($id))
+			throw new DBException('Не указан ID удаляемой записи');
+		$sql = 'DELETE FROM '.static::tableName().' WHERE id = ?';
+		$con = new Connection();
+		$q = $con->con->stmt_init();
+		if (!$q->prepare($sql) || !$q->bind_param('i', $id) || !$q->execute())
+			throw new DBException($q->error);
+	}
+
 	static public function get($id) {
 		$con = new Connection();
 		$q = $con->con->stmt_init();
