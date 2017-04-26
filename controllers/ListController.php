@@ -4,7 +4,7 @@ require 'models/Entry.php';
 
 class ListController extends Controller
 {
-	public function actionIndex($args) {
+	public function actionIndex() {
 		$entries = Entry::getAll();
 		$this->view->render('TemplateView.php', 'ListView.php', $entries);
 	}
@@ -14,7 +14,7 @@ class ListController extends Controller
 		$container['message_kind'] = $isSuccess ? 'message_success' : 'message_error';
 	}
 
-	public function actionAdd($args) {
+	public function actionAdd() {
 		$data = [ 'title' => 'Новая запись' ];
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			try {
@@ -32,8 +32,9 @@ class ListController extends Controller
 		$this->view->render('TemplateView.php', 'EntryView.php', $data);
 	}
 
-	public function actionEdit($args) {
+	public function actionEdit() {
 		$data = [ 'title' => 'Редактирование' ];
+		$id = $_SERVER['REQUEST_METHOD'] == 'POST' ? $_POST['id'] : $_GET['id'];
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			try {
 				Entry::update($_POST);
@@ -44,11 +45,11 @@ class ListController extends Controller
 				$this->setMessage($data, 'Ошибка при сохранении изменений: '.$e->getMessage(), false);
 			}
 		}
-		$data['entry'] = Entry::get($args);
+		$data['entry'] = Entry::get($id);
 		$this->view->render('TemplateView.php', 'EntryView.php', $data);
 	}
 
-	public function actionDelete($args) {
+	public function actionDelete() {
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			try {
 				Entry::delete($_POST['id']);

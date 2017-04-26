@@ -23,15 +23,19 @@
 		<div><?php echo $entry->phone; ?></div>
 		<div><?php echo $entry->birthday; ?></div>
 		<div>
-			<a href="/list/edit/<?php echo $entry->id ?>" title="Редактировать запись...">Редактировать</a>
 			<form
-				id="del<?php echo $entry->id ?>"
-				action="/list/delete/<?php echo $entry->id ?>"
-				name="del<?php echo $entry->id ?>"
-				method="POST"
+				id="entry<?php echo $entry->id ?>"
+				name="entry<?php echo $entry->id ?>"
 			>
 				<input type="hidden" name="id" value=<?php echo '"'.$entry->id.'"'; ?>>
-				<input type="submit" value="Удалить">
+				<input
+					type="submit" value="Редактировать" formmethod="GET"
+					formaction="/list/edit/"
+				>
+				<input
+					type="submit" value="Удалить" formmethod="POST"
+					formaction="/list/delete/"
+				>
 			</form>
 		</div>
 	</div>

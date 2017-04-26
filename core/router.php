@@ -5,14 +5,11 @@ class Router
 	static function start() {
 		$controllerName = 'list'; // контроллер по умолчанию
 		$actionName = 'index';
-		$args = '';
 		$chunks = explode('/', $_SERVER['REQUEST_URI'], 4);
 		if (isset($chunks[1]))
 			$controllerName = $chunks[1];
 		if (isset($chunks[2]) && $chunks[2] != '')
 			$actionName = $chunks[2];
-		if (isset($chunks[3]))
-			$args = $chunks[3];
 		
 		$controllerName = ucfirst($controllerName).'Controller';
 		$controllerFile = 'controllers/'.$controllerName.'.php';
@@ -23,7 +20,7 @@ class Router
 			$controller = new $controllerName;
 			if (method_exists($controller, $actionName)) {
 				session_start();
-				$controller->$actionName($args);
+				$controller->$actionName();
 			}
 			else
 				throw new PageNotFoundException();

@@ -8,5 +8,5 @@ class Controller
 		$this->view = new View();
 	}
 
-	public function actionIndex($args) {}
+	public function actionIndex() {}
 }
