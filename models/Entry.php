@@ -26,6 +26,10 @@ class Entry extends Model
 		return 'entries';
 	}
 
+	static protected function orderBy() {
+		return 'm.lastName, m.firstName, m.middleName';
+	}
+
 	static protected function fields() {
 		return ['lastName', 'firstName', 'middleName', 'birthday', 'city', 'street', 'phone'];
 	}

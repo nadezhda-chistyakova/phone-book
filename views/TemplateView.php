@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf8" name="description" content="Телефонный справочник">
+	<meta charset="utf8" name="description" content="Телефонный справочник (тестовое задание)">
 	<title>Телефонный справочник</title>
 	<link rel="stylesheet" type="text/css" href="/css/styles.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

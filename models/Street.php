@@ -9,7 +9,15 @@ class Street extends Model
 		return 'streets';
 	}
 
+	static protected function orderBy() {
+		return 'm.name';
+	}
+
 	static protected function fields() {
 		return ['name', 'city'];
+	}
+
+	static public function getByCityId($city) {
+		return static::getByAnyId('m.city', $city);
 	}
 }

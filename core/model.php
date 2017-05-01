@@ -14,6 +14,10 @@ class Model
 		return 'id';
 	}
 
+	static protected function orderBy() {
+		return 'id';
+	}
+
 	static protected function fields() {
 		return [];
 	}
@@ -32,7 +36,9 @@ class Model
 		// собираем весь запрос
 		$sql = 'SELECT '.$sqlFields.' '.'FROM '.static::tableName().' m '.static::getSQLJoins();
 		if ($cond != '')
-			$sql .= 'WHERE '.$cond;
+			$sql .= 'WHERE '.$cond.' ';
+		if (static::orderBy() != '')
+			$sql .= 'ORDER BY '.static::orderBy();
 		return $sql;
 	}
 
@@ -58,20 +64,28 @@ class Model
 			throw new DBException($q->error);
 	}
 
-	static public function get($id) {
+	static public function getByAnyId($field, $id) {
 		$con = new Connection();
 		$q = $con->con->stmt_init();
-		if (!$q->prepare(static::getSQL('m.id = ?')) || !$q->bind_param('i', $id)  || !$q->execute())
+		if (!$q->prepare(static::getSQL($field.' = ?')) || !$q->bind_param('i', $id)  || !$q->execute())
 			throw new DBException($q->error);
 		$data = $q->get_result();
 		if (!$data)
 			throw new DBException($con->con->errno);
-		if ($data->num_rows == 0)
-			throw new ObjectNotFoundException();
-		$row = $data->fetch_assoc();
-		$res = new static();
-		$res->init($row);
+		$res = [];
+		while ($row = $data->fetch_assoc()) {
+			$obj = new static();
+			$obj->init($row);
+			$res []= $obj;
+		}
 		return $res;
+	}
+
+	static public function get($id) {
+		$allObjs =  static::getByAnyId('m.id', $id);
+		if (count($allObjs) == 0)
+			throw new ObjectNotFoundException();
+		return $allObjs[0];
 	}
 
 	static public function getAll() {

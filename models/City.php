@@ -8,6 +8,10 @@ class City extends Model
 		return 'cities';
 	}
 
+	static protected function orderBy() {
+		return 'm.name';
+	}
+
 	static protected function fields() {
 		return ['name'];
 	}

@@ -17,7 +17,7 @@ div.entry_input {
 	margin: 5px;
 }
 
-div.entry_input span {
+span.in_label {
 	display: inline-block;
 	width: 120px;
 }
