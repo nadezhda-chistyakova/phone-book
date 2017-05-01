@@ -29,7 +29,6 @@ function initCityPicker() {
 					delay: 0,
 					autoFocus: true,
 				});
-				$('#in_city_name').attr('autocomplete', 'on');
 			}
 		}
 	);
@@ -79,7 +78,6 @@ function initStreetPicker() {
 		minLength: 0,
 		autoFocus: true,
 	});
-	$('#in_street_name').attr('autocomplete', 'on');
 }
 
 $(document).ready(function() {
