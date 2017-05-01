@@ -43,6 +43,18 @@ function filterByTemplate(template, values) {
 }
 
 function initStreetPicker() {
+	// если город уже задан - запрашиваем список его улиц
+	var currentCityId = $('#in_city').val();
+	if (typeof currentCityId !== 'undefined') {
+		$.get(
+			'/picker/streets/', {'city': currentCityId},
+			function(data) {
+				if (data != false)
+					streets = JSON.parse(data);
+			}
+		);
+	}
+
 	$('#in_street_name').autocomplete({
 		source:
 			function(request, response) {
@@ -73,6 +85,8 @@ function initStreetPicker() {
 $(document).ready(function() {
 	initCityPicker();
 	initStreetPicker();
+
+	$('#in_phone').mask('+7 (999) 999 99 99');
 
 	// инициализация пикера даты рождения
 	$.datepicker.setDefaults({
