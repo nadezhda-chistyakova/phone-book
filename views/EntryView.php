@@ -30,13 +30,26 @@
 			<div class="entry_input"><label>
 				<span class="in_label">Город:</span>
 				<input id="in_city" type="hidden" name="city" value=<?php echo '"'.$data['entry']->city.'"'?>>
-				<input id="in_city_name" name="cityName" value=<?php echo '"'.$data['entry']->cityName.'"'?>>
+				<input
+					id="in_city_name"
+					name="cityName"
+					value=<?php echo '"'.$data['entry']->cityName.'"'?>
+					placeholder="Начните ввод"
+				>
 			</label></div>
 			<div class="entry_input"><label>
 				<span class="in_label">Улица:</span>
 				<input id="in_street" type="hidden" name="street" value=<?php echo '"'.$data['entry']->street.'"'?>>
-				<input id="in_street_name" name="streetName" value=<?php echo '"'.$data['entry']->streetName.'"'?>>
+				<input
+					id="in_street_name"
+					name="streetName"
+					value=<?php echo '"'.$data['entry']->streetName.'"'?>
+					placeholder="Начните ввод"
+				>
 			</label></div>
+			<div class="entry_input">
+				<span class="hint">Нажмите BACKSPACE, чтобы увидеть все варианты<span>
+			</div>
 			<div class="entry_input"><label>
 				<span class="in_label">Телефон:</span>
 				<input id="in_phone" name="phone" value=<?php echo '"'.$data['entry']->phone.'"'?>>

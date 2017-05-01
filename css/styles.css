@@ -17,6 +17,11 @@ div.entry_input {
 	margin: 5px;
 }
 
+.hint {
+	font-size: small;
+	color: gray;
+}
+
 span.in_label {
 	display: inline-block;
 	width: 120px;
