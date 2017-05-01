@@ -19,7 +19,7 @@
 				<span>Отчество:</span><input name="middleName" value=<?php echo '"'.$data['entry']->middleName.'"'?>>
 			</label></div>
 			<div class="entry_input"><label>
-				<span>День рождения:</span><input name="birthday" value=<?php echo '"'.$data['entry']->birthday.'"'?>>
+				<span>День рождения:</span><input id="in_birthday" name="birthday" value=<?php echo '"'.$data['entry']->birthday.'"'?>>
 			</label></div>
 		</div>
 		<div class="entry_input_block">
