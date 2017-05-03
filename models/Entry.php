@@ -22,6 +22,10 @@ class Entry extends Model
 		return implode(' ', [$this->lastName, $this->firstName, $this->middleName]);
 	}
 
+	public function getBirthday() {
+		return date('d.m.Y', strtotime($this->birthday));
+	}
+
 	static public function tableName() {
 		return 'entries';
 	}
@@ -48,6 +52,8 @@ class Entry extends Model
 		$res = $rawParams;
 		foreach(['lastName', 'firstName', 'middleName', 'birthday', 'phone'] as $strParam)
 			$res[$strParam] = $rawParams[$strParam] == '' ? null : $rawParams[$strParam];
+		if (!is_null($res['birthday']))
+			$res['birthday'] = date('Y-m-d', strtotime($res['birthday']));
 		return $res;
 	}
 

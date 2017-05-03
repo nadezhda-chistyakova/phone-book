@@ -21,7 +21,7 @@
 		<div><?php echo $entry->cityName; ?></div>
 		<div><?php echo $entry->streetName; ?></div>
 		<div><?php echo $entry->phone; ?></div>
-		<div><?php echo $entry->birthday; ?></div>
+		<div><?php echo $entry->getBirthday(); ?></div>
 		<div>
 			<form
 				id="edit<?php echo $entry->id ?>" name="edit<?php echo $entry->id ?>"

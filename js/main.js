@@ -88,7 +88,7 @@ $(document).ready(function() {
 
 	// инициализация пикера даты рождения
 	$.datepicker.setDefaults({
-		dateFormat: 'yy-mm-dd',
+		dateFormat: 'dd.mm.yy',
 		changeYear: true,
 		changeMonth: true,
 		monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],

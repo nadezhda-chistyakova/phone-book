@@ -23,7 +23,7 @@
 			</label></div>
 			<div class="entry_input"><label>
 				<span class="in_label">День рождения:</span>
-				<input id="in_birthday" name="birthday" value=<?php echo '"'.$data['entry']->birthday.'"'?>>
+				<input id="in_birthday" name="birthday" value=<?php echo '"'.$data['entry']->getBirthday().'"'?>>
 			</label></div>
 		</div>
 		<div class="entry_input_block">
