@@ -22,8 +22,23 @@ class Model
 		return [];
 	}
 
+	static protected function fieldCaptions() {
+		return [];
+	}
+
 	static protected function additionalFields() {
 		return [];
+	}
+
+	static public function fieldCaption($field) {
+		$res = $field;
+		$idx = array_search($field, static::fields());
+		if ($idx !== false) {
+			$caption = static::fieldCaptions()[$idx];
+			if (isset($caption))
+				$res = $caption;
+		}
+		return $res;
 	}
 
 	static protected function getSQL($cond) {
@@ -56,22 +71,22 @@ class Model
 
 	static public function delete($id) {
 		if (!isset($id))
-			throw new DBException('Не указан ID удаляемой записи');
+			throw new DBException(static::class, 'Не указан ID удаляемой записи', false);
 		$sql = 'DELETE FROM '.static::tableName().' WHERE id = ?';
 		$con = new Connection();
 		$q = $con->con->stmt_init();
 		if (!$q->prepare($sql) || !$q->bind_param('i', $id) || !$q->execute())
-			throw new DBException($q->error);
+			throw new DBException(static::class, $q->error, $q->errno);
 	}
 
 	static public function getByAnyId($field, $id) {
 		$con = new Connection();
 		$q = $con->con->stmt_init();
 		if (!$q->prepare(static::getSQL($field.' = ?')) || !$q->bind_param('i', $id)  || !$q->execute())
-			throw new DBException($q->error);
+			throw new DBException(static::class, $q->error, $q->errno);
 		$data = $q->get_result();
 		if (!$data)
-			throw new DBException($con->con->errno);
+			throw new DBException(static::class, $con->con->errno, $q->errno);
 		$res = [];
 		while ($row = $data->fetch_assoc()) {
 			$obj = new static();

@@ -38,6 +38,10 @@ class Entry extends Model
 		return ['lastName', 'firstName', 'middleName', 'birthday', 'city', 'street', 'phone'];
 	}
 
+	static protected function fieldCaptions() {
+		return ['Фамилия', 'Имя', 'Отчество', 'День рождения', 'Город', 'Улица', 'Телефон'];
+	}
+
 	static protected function additionalFields() {
 		return ['c.name AS cityName', 's.name AS streetName'];
 	}
@@ -52,8 +56,11 @@ class Entry extends Model
 		$res = $rawParams;
 		foreach(['lastName', 'firstName', 'middleName', 'birthday', 'phone'] as $strParam)
 			$res[$strParam] = $rawParams[$strParam] == '' ? null : $rawParams[$strParam];
-		if (!is_null($res['birthday']))
-			$res['birthday'] = date('Y-m-d', strtotime($res['birthday']));
+		if (!is_null($res['birthday'])) {
+			$date = strtotime($res['birthday']);
+			if ($date !== false)
+				$res['birthday'] = date('Y-m-d', $date);
+		}
 		return $res;
 	}
 
@@ -67,7 +74,7 @@ class Entry extends Model
 		$con = new Connection();
 		$q = $con->con->stmt_init();
 		if (!$q->prepare($sql))
-			throw new DBException($q->error);
+			throw new DBException(static::class, $q->error, $q->errno);
 
 		// привязываем параметры и выполняем
 		$params = static::prepareParams($values);
@@ -76,7 +83,7 @@ class Entry extends Model
 			$params['lastName'], $params['firstName'], $params['middleName'], $params['birthday'],
 			$params['city'], $params['street'], $params['phone']);
 		if (!$bindRes || !$q->execute())
-			throw new DBException($q->error);
+			throw new DBException(static::class, $q->error, $q->errno);
 	}
 
 	static public function update($values) {
@@ -88,7 +95,7 @@ class Entry extends Model
 		$con = new Connection();
 		$q = $con->con->stmt_init();
 		if (!$q->prepare($sql))
-			throw new DBException($q->error);
+			throw new DBException(static::class, $q->error, $q->errno);
 
 		// привязываем параметры и выполняем
 		$params = static::prepareParams($values);
@@ -97,6 +104,6 @@ class Entry extends Model
 			$params['lastName'], $params['firstName'], $params['middleName'], $params['birthday'],
 			$params['city'], $params['street'], $params['phone'], $params['id']);
 		if (!$bindRes || !$q->execute())
-			throw new DBException($q->error);
+			throw new DBException(static::class, $q->error, $q->errno);
 	}
 }
