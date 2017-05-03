@@ -1,3 +1,4 @@
 external/*
 start_php.bat
 logs/*
+config.php
