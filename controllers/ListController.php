@@ -15,7 +15,7 @@ class ListController extends Controller
 	}
 
 	public function actionAdd() {
-		$data = [ 'title' => 'Новая запись' ];
+		$data = ['title' => 'Новая запись'];
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			try {
 				Entry::insert($_POST);
@@ -27,13 +27,13 @@ class ListController extends Controller
 			}
 		}
 		$data['entry'] = new Entry();
-		if ($_SERVER['REQUEST_METHOD'] == 'POST')
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') // инициализируем сохранёнными значениями
 			$data['entry']->init($_POST);
 		$this->view->render('TemplateView.php', 'EntryView.php', $data);
 	}
 
 	public function actionEdit() {
-		$data = [ 'title' => 'Редактирование' ];
+		$data = ['title' => 'Редактирование'];
 		$id = $_SERVER['REQUEST_METHOD'] == 'POST' ? $_POST['id'] : $_GET['id'];
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			try {
@@ -47,6 +47,8 @@ class ListController extends Controller
 		}
 		try {
 			$data['entry'] = Entry::get($id);
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') // инициализируем сохранёнными значениями
+				$data['entry']->init($_POST);
 		}  catch (ObjectNotFoundException $e) {
 			$this->setMessage($_SESSION, 'Запись не найдена', false);
 			header('Location: /list', true, 303);

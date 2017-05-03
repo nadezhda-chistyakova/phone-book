@@ -44,6 +44,13 @@ class Entry extends Model
 			'INNER JOIN '.Street::tableName().' s ON s.id = m.street ';
 	}
 
+	static protected function prepareParams($rawParams) {
+		$res = $rawParams;
+		foreach(['lastName', 'firstName', 'middleName', 'birthday', 'phone'] as $strParam)
+			$res[$strParam] = $rawParams[$strParam] == '' ? null : $rawParams[$strParam];
+		return $res;
+	}
+
 	static public function insert($values) {
 		// подготавливаем запрос
 		$sqlFields = static::fields();
@@ -57,10 +64,11 @@ class Entry extends Model
 			throw new DBException($q->error);
 
 		// привязываем параметры и выполняем
+		$params = static::prepareParams($values);
 		$bindRes = $q->bind_param(
 			'ssssiis',
-			$values['lastName'], $values['firstName'], $values['middleName'], $values['birthday'],
-			$values['city'], $values['street'], $values['phone']);
+			$params['lastName'], $params['firstName'], $params['middleName'], $params['birthday'],
+			$params['city'], $params['street'], $params['phone']);
 		if (!$bindRes || !$q->execute())
 			throw new DBException($q->error);
 	}
@@ -77,10 +85,11 @@ class Entry extends Model
 			throw new DBException($q->error);
 
 		// привязываем параметры и выполняем
+		$params = static::prepareParams($values);
 		$bindRes = $q->bind_param(
 			'ssssiisi',
-			$values['lastName'], $values['firstName'], $values['middleName'], $values['birthday'],
-			$values['city'], $values['street'], $values['phone'], $values['id']);
+			$params['lastName'], $params['firstName'], $params['middleName'], $params['birthday'],
+			$params['city'], $params['street'], $params['phone'], $params['id']);
 		if (!$bindRes || !$q->execute())
 			throw new DBException($q->error);
 	}
