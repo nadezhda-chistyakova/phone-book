@@ -100,6 +100,12 @@ $(document).ready(function() {
 	});
 	$('#in_birthday').datepicker();
 
+	$('.delete_entry').submit(function(e) {
+		// запрашиваем подтверждение удаления
+		if (!confirm('Вы действительно хотите удалить этот телефон?'))
+			e.preventDefault();
+	});
+
 	$('#entry_form').submit(function(e) {
 		// перед отправкой определяем id города и улицы по выбранным значениям списков
 		var cityId = getCityId();

@@ -24,18 +24,18 @@
 		<div><?php echo $entry->birthday; ?></div>
 		<div>
 			<form
-				id="entry<?php echo $entry->id ?>"
-				name="entry<?php echo $entry->id ?>"
+				id="edit<?php echo $entry->id ?>" name="edit<?php echo $entry->id ?>"
+				action="/list/edit/" method="GET"
 			>
 				<input type="hidden" name="id" value=<?php echo '"'.$entry->id.'"'; ?>>
-				<input
-					type="submit" value="Редактировать" formmethod="GET"
-					formaction="/list/edit/"
-				>
-				<input
-					type="submit" value="Удалить" formmethod="POST"
-					formaction="/list/delete/"
-				>
+				<input type="submit" value="Редактировать">
+			</form>
+			<form
+				id="delete<?php echo $entry->id ?>" name="delete<?php echo $entry->id ?>"
+				class="delete_entry" action="/list/delete/" method="POST"
+			>
+				<input type="hidden" name="id" value=<?php echo '"'.$entry->id.'"'; ?>>
+				<input type="submit" value="Удалить">
 			</form>
 		</div>
 	</div>
