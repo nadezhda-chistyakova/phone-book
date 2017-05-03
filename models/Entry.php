@@ -23,7 +23,11 @@ class Entry extends Model
 	}
 
 	public function getBirthday() {
-		return date('d.m.Y', strtotime($this->birthday));
+		$date = strtotime($this->birthday);
+		if ($date !== false)
+			return date('d.m.Y', $date);
+		else
+			return $this->birthday;
 	}
 
 	static public function tableName() {
