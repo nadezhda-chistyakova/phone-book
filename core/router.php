@@ -6,7 +6,7 @@ class Router
 		$controllerName = 'list'; // контроллер по умолчанию
 		$actionName = 'index';
 		$chunks = explode('/', $_SERVER['REQUEST_URI'], 4);
-		if (isset($chunks[1]))
+		if (isset($chunks[1]) && $chunks[1] != '')
 			$controllerName = $chunks[1];
 		if (isset($chunks[2]) && $chunks[2] != '')
 			$actionName = $chunks[2];

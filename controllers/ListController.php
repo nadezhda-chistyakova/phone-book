@@ -45,7 +45,13 @@ class ListController extends Controller
 				$this->setMessage($data, 'Ошибка при сохранении изменений: '.$e->getMessage(), false);
 			}
 		}
-		$data['entry'] = Entry::get($id);
+		try {
+			$data['entry'] = Entry::get($id);
+		}  catch (ObjectNotFoundException $e) {
+			$this->setMessage($_SESSION, 'Запись не найдена', false);
+			header('Location: /list', true, 303);
+			exit;
+		}
 		$this->view->render('TemplateView.php', 'EntryView.php', $data);
 	}
 
