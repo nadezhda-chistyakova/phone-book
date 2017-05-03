@@ -56,6 +56,49 @@ class Entry extends Model
 			'INNER JOIN '.Street::tableName().' s ON s.id = m.street ';
 	}
 
+	static public function getFiltered($fio, $city) {
+		$con = new Connection();
+		$q = $con->con->stmt_init();
+
+		// строим запрос и условие
+		$cond = '';
+		if ($fio != '') {
+			$cond = "CONCAT(m.lastName, ' ', m.firstName, ' ', m.middleName) LIKE ?";
+			$fio = '%'.$fio.'%';
+		}
+		if ($city != '') {
+			if ($cond != '')
+				$cond .= ' AND ';
+			$cond .= 'm.city = ?';
+		}
+		if (!$q->prepare(static::getSQL($cond)))
+			throw new DBException(static::class, $q->error, $q->errno);
+
+		// привязываем параметры
+		$r = true;
+		if ($fio != '' && $city != '') {
+			$r = $q->bind_param('si', $fio, $cond);
+		} else if ($fio != '') {
+			$r = $q->bind_param('s', $fio);
+		} else if ($city != '') {
+			$r = $q->bind_param('i', $city);
+		}
+		if (!$r || !$q->execute())
+			throw new DBException(static::class, $q->error, $q->errno);
+
+		$data = $q->get_result();
+		if (!$data)
+			throw new DBException(static::class, $con->con->errno, $q->errno);
+
+		$res = [];
+		while ($row = $data->fetch_assoc()) {
+			$obj = new static();
+			$obj->init($row);
+			$res []= $obj;
+		}
+		return $res;
+	}
+
 	static protected function prepareParams($rawParams) {
 		$res = $rawParams;
 		foreach(['lastName', 'firstName', 'middleName', 'birthday', 'phone'] as $strParam)

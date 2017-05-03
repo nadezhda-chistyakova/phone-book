@@ -106,6 +106,21 @@ $(document).ready(function() {
 			e.preventDefault();
 	});
 
+	// инициализируем работу кнопок поиска
+	$('#list_search_fio').click(function() {
+		$('#list_search_form').submit();
+	});
+
+	$('#list_search_city').click(function() {
+		$('#list_search_form').submit();
+	});
+	$('#list_search_form').submit(function(e) {
+		var cityId = getCityId();
+		if (cityId == 0)
+			cityId = '';
+		$('#in_city').val(cityId);
+	});
+
 	$('#entry_form').submit(function(e) {
 		// перед отправкой определяем id города и улицы по выбранным значениям списков
 		var cityId = getCityId();

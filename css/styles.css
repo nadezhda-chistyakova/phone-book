@@ -1,16 +1,45 @@
-.entry_line>div {
+/* list view */
+
+.entry_line div {
 	display: inline-block;
 	padding: 5px;
 	width: 10%;
+}
+
+.entry_line_odd {
+	background-color: #e8e8e8;
 }
 
 div.entry_line_large {
 	width: 30%;
 }
 
+
+.entry_line_large input.in_search {
+	width: 90%;
+}
+
+input.in_search {
+	width: 80%;
+}
+
+.btn_search {
+	cursor: pointer;
+}
+
+div.entry_line_medium {
+	width: 20%;
+}
+
 .entry_header {
 	background-color: #d3d3d3;
 }
+
+.inline_form {
+	display: inline;
+}
+
+/* entry view */
 
 div.entry_input {
 	display: block;
@@ -36,6 +65,8 @@ div.entry_input_footer {
 	clear: left;
 	margin: 15px;
 }
+
+/* common */
 
 .message {
 	padding: 10px;

@@ -6,7 +6,32 @@ class ListController extends Controller
 {
 	public function actionIndex() {
 		$entries = Entry::getAll();
-		$this->view->render('TemplateView.php', 'ListView.php', $entries);
+		$this->view->render(
+			'TemplateView.php', 'ListView.php',
+			[
+				'entries' => $entries,
+				'search' => [
+					'fio' => '',
+					'city' => '',
+					'cityName' => '',
+				]
+			]
+		);
+	}
+
+	public function actionSearch() {
+		$entries = Entry::getFiltered($_GET['fio'], $_GET['city']);
+		$this->view->render(
+			'TemplateView.php', 'ListView.php',
+			[
+				'entries' => $entries,
+				'search' => [
+					'fio' => $_GET['fio'],
+					'city' => $_GET['city'],
+					'cityName' => $_GET['cityName'],
+				]
+			]
+		);
 	}
 
 	private function setMessage(&$container, $message, $isSuccess) {
