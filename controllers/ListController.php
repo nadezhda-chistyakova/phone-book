@@ -42,6 +42,8 @@ class ListController extends Controller
 	}
 
 	public function actionAdd() {
+		// при GET-запросе предоставляет страницу добавления записи
+		// при POST-запросе пытается сохранить запись и при успехе перенаправляет к списку
 		$data = ['title' => 'Новая запись'];
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			try {
@@ -60,6 +62,8 @@ class ListController extends Controller
 	}
 
 	public function actionEdit() {
+		// при GET-запросе предоставляет страницу редактирования записи
+		// при POST-запросе пытается сохранить изменения и при успехе перенаправляет к списку
 		$data = ['title' => 'Редактирование'];
 		$id = $_SERVER['REQUEST_METHOD'] == 'POST' ? $_POST['id'] : $_GET['id'];
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {

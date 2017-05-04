@@ -100,9 +100,11 @@ class Entry extends Model
 	}
 
 	static protected function prepareParams($rawParams) {
+		// заменяем пустые строки в списке параметров на null
 		$res = $rawParams;
 		foreach(['lastName', 'firstName', 'middleName', 'birthday', 'phone'] as $strParam)
 			$res[$strParam] = $rawParams[$strParam] == '' ? null : $rawParams[$strParam];
+		// преобразуем дату в нужный формат
 		if (!is_null($res['birthday'])) {
 			$date = strtotime($res['birthday']);
 			if ($date !== false)

@@ -31,6 +31,8 @@ class Model
 	}
 
 	static public function fieldCaption($field) {
+		// возвращает понятный пользователю заголовок поля
+		// либо название поля, если заголовок не найден
 		$res = $field;
 		$idx = array_search($field, static::fields());
 		if ($idx !== false) {
@@ -70,6 +72,7 @@ class Model
 	}
 
 	static public function delete($id) {
+		// удаление записи по ID
 		if (!isset($id))
 			throw new DBException(static::class, 'Не указан ID удаляемой записи', false);
 		$sql = 'DELETE FROM '.static::tableName().' WHERE id = ?';
@@ -80,6 +83,7 @@ class Model
 	}
 
 	static public function getByAnyId($field, $id) {
+		// выбор записи или записей по условию $field = $id
 		$con = new Connection();
 		$q = $con->con->stmt_init();
 		if (!$q->prepare(static::getSQL($field.' = ?')) || !$q->bind_param('i', $id)  || !$q->execute())
