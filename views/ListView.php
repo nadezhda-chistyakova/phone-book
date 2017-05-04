@@ -1,4 +1,9 @@
 <h1>Номера телефонов</h1>
+<?php if ($data['search']['on']) { ?>
+	<div class="navigation">
+		<a href="/list" title="Вернуться к полному списку номеров">Назад к полному списку</a>
+	</div>
+<?php } ?>
 <?php
 	if (isset($_SESSION['message'])) {
 		echo '<div class="message '.$_SESSION['message_kind'].'">'.$_SESSION['message'].'</div>';

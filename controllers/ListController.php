@@ -11,6 +11,7 @@ class ListController extends Controller
 			[
 				'entries' => $entries,
 				'search' => [
+					'on' => false,
 					'fio' => '',
 					'city' => '',
 					'cityName' => '',
@@ -26,6 +27,7 @@ class ListController extends Controller
 			[
 				'entries' => $entries,
 				'search' => [
+					'on' => true,
 					'fio' => $_GET['fio'],
 					'city' => $_GET['city'],
 					'cityName' => $_GET['cityName'],
