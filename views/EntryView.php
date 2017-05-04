@@ -6,7 +6,7 @@
 	if (isset($data['message']))
 		echo '<div class="message '.$data['message_kind'].'">'.$data['message'].'</div>';
 ?>
-<form action="" id="entry_form" name="EntryForm" method="POST">
+<form action="" id="entry_form" name="entryForm" method="POST">
 	<div>
 		<div class="entry_input_block">
 			<div class="entry_input"><label>

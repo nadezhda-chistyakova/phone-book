@@ -14,12 +14,11 @@ div.entry_line_large {
 	width: 30%;
 }
 
-
-.entry_line_large input.in_search {
+.entry_line_large input.entry_search {
 	width: 90%;
 }
 
-input.in_search {
+input.entry_search {
 	width: 80%;
 }
 

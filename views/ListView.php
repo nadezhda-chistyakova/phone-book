@@ -13,27 +13,27 @@
 		<div>Улица</div>
 		<div>Телефон</div>
 		<div>День рождения</div>
-		<div><a href="/list/add" title="Добавить запись...">Добавить запись</a></div>
+		<div class="entry_line_medium"><a href="/list/add" title="Добавить запись...">Добавить запись</a></div>
 	</div>
 	<div class="entry_line entry_header">
 		<form id="list_search_form" name="listSearch" action="/list/search/" method="GET">
 			<div class="entry_line_large">
-				<input class="in_search" name="fio" value=<?php echo '"'.$data['search']['fio'].'"'; ?>>
-				<span id="list_search_fio" class="btn_search ui-icon ui-icon-search"></span>
+				<input class="entry_search" name="fio" value=<?php echo '"'.$data['search']['fio'].'"'; ?>>
+				<span class="list_search_btn btn_search ui-icon ui-icon-search"></span>
 			</div>
 			<div>
 				<input type="hidden" id="in_city" name="city" value=<?php echo '"'.$data['search']['city'].'"'; ?>>
 				<input
-					class="in_search" id="in_city_name" name="cityName"
+					class="entry_search" id="in_city_name" name="cityName"
 					value=<?php echo '"'.$data['search']['cityName'].'"'; ?>
 					placeholder="Начните ввод"
 				>
-				<span id="list_search_city" class="btn_search ui-icon ui-icon-search"></span>
+				<span class="list_search_btn btn_search ui-icon ui-icon-search"></span>
 			</div>
 			<div></div>
 			<div></div>
 			<div></div>
-			<div></div>
+			<div class="entry_line_medium"></div>
 		</form>
 	</div>
 <?php

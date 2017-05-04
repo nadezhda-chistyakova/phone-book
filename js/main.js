@@ -1,4 +1,4 @@
-// локальные версии списков городов/улиц города
+// локальные версии списка городов и улиц города
 var cities = [];
 var streets = [];
 
@@ -107,11 +107,7 @@ $(document).ready(function() {
 	});
 
 	// инициализируем работу кнопок поиска
-	$('#list_search_fio').click(function() {
-		$('#list_search_form').submit();
-	});
-
-	$('#list_search_city').click(function() {
+	$('.list_search_btn').click(function() {
 		$('#list_search_form').submit();
 	});
 	$('#list_search_form').submit(function(e) {
