@@ -77,7 +77,7 @@ class Entry extends Model
 		// привязываем параметры
 		$r = true;
 		if ($fio != '' && $city != '') {
-			$r = $q->bind_param('si', $fio, $cond);
+			$r = $q->bind_param('si', $fio, $city);
 		} else if ($fio != '') {
 			$r = $q->bind_param('s', $fio);
 		} else if ($city != '') {
