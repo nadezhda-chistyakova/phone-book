@@ -9,6 +9,6 @@ class Connection
 	public function __construct() {
 		$this->con = new \mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		if ($this->con->connect_errno)
-			throw new DBConnetionException($this->con->connect_errno.': '.$this->con->connect_error);
+			throw new DBConnectionException($this->con->connect_errno.': '.$this->con->connect_error);
 	}
 }
